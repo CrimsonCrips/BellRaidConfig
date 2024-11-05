@@ -26,7 +26,7 @@ import java.util.List;
 
 
 @Mixin(BellBlockEntity.class)
-public abstract class RBRBellBlock extends BlockEntity {
+public class RBRBellBlock extends BlockEntity {
 
 
     @Shadow private long lastRingTimestamp;
@@ -37,18 +37,18 @@ public abstract class RBRBellBlock extends BlockEntity {
         super(pType, pPos, pBlockState);
     }
 
-    @Inject(method = "isRaiderWithinRange", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "isRaiderWithinRange", at = @At("HEAD"), cancellable = true)
     private static void injected(BlockPos pPos, LivingEntity pRaider, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(bornInConfiguration$newExecution(pPos,pRaider));
+        cir.setReturnValue(raiderIsWithinRange(pPos,pRaider));
     }
 
     @Unique
-    private static boolean bornInConfiguration$newExecution(BlockPos pos, LivingEntity raider) {
+    private static boolean raiderIsWithinRange(BlockPos pos, LivingEntity raider) {
         return raider.isAlive() && !raider.isRemoved() && pos.closerToCenterThan(raider.position(), RBRConfig.giveRange) && raider.getType().is(EntityTypeTags.RAIDERS);
 
     }
 
-    @Inject(method = "updateEntities", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "updateEntities", at = @At("HEAD"), cancellable = true)
     private void updateEntities(CallbackInfo ci) {
         ci.cancel();
         BlockPos $$0 = this.getBlockPos();
@@ -70,13 +70,13 @@ public abstract class RBRBellBlock extends BlockEntity {
         }
     }
 
-    @Inject(method = "areRaidersNearby", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "areRaidersNearby", at = @At("HEAD"), cancellable = true)
     private static void areRaidersNearby(BlockPos pPos, List<LivingEntity> pRaiders, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(raiderAreNearby(pRaiders, pPos));
+        cir.setReturnValue(raidersAreNearby(pRaiders, pPos));
     }
 
     @Unique
-    private static boolean raiderAreNearby(List<LivingEntity> pRaiders,BlockPos pPos) {
+    private static boolean raidersAreNearby(List<LivingEntity> pRaiders,BlockPos pPos) {
         Iterator var2 = pRaiders.iterator();
 
         LivingEntity $$2;
