@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.crimsoncrips.raidingbellrange.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "raidingbellrange.refmap.json",
+  "mixins": [
+    "AMIDimensionalCarver"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
