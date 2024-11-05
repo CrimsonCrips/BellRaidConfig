@@ -6,18 +6,22 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 
 @Mod.EventBusSubscriber(modid = RaidingBellRange.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class Config {
+public class RBRConfig {
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
-    private static final ForgeConfigSpec.IntValue MAGIC_NUMBER = BUILDER.comment("Range of raider detection (blocks)").defineInRange("bellRange", 42, 1, Integer.MAX_VALUE);
+    private static final ForgeConfigSpec.IntValue GIVE_RANGE = BUILDER.comment("Range of giving glowness to raiders (blocks)").defineInRange("giveRange", 48, 1, Integer.MAX_VALUE);
+
+    private static final ForgeConfigSpec.IntValue DETECTION_RANGE = BUILDER.comment("Range of raider detection (blocks)").defineInRange("detectionRange", 32, 1, Integer.MAX_VALUE);
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
 
-    public static int magicNumber;
+    public static int giveRange;
+    public static int detectionRange;
 
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
-        magicNumber = MAGIC_NUMBER.get();
+        giveRange = GIVE_RANGE.get();
+        detectionRange = DETECTION_RANGE.get();
     }
 }

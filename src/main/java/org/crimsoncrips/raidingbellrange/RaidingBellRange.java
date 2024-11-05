@@ -13,7 +13,7 @@ public class RaidingBellRange {
 
 
     public RaidingBellRange() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, RBRConfig.SPEC);
     }
 
 }

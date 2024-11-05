@@ -5,7 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "raidingbellrange.refmap.json",
   "mixins": [
-    "AMIDimensionalCarver"
+    "RBRBellBlock"
   ],
   "client": [
   ],
