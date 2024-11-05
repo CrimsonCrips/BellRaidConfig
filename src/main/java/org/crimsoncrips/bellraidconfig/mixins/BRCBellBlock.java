@@ -1,18 +1,16 @@
-package org.crimsoncrips.raidingbellrange.mixins;
+package org.crimsoncrips.bellraidconfig.mixins;
 
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BellBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import org.crimsoncrips.raidingbellrange.RBRConfig;
+import org.crimsoncrips.bellraidconfig.BRCConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -26,14 +24,14 @@ import java.util.List;
 
 
 @Mixin(BellBlockEntity.class)
-public class RBRBellBlock extends BlockEntity {
+public class BRCBellBlock extends BlockEntity {
 
 
     @Shadow private long lastRingTimestamp;
 
     @Shadow private List<LivingEntity> nearbyEntities;
 
-    public RBRBellBlock(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
+    public BRCBellBlock(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
         super(pType, pPos, pBlockState);
     }
 
@@ -44,7 +42,7 @@ public class RBRBellBlock extends BlockEntity {
 
     @Unique
     private static boolean raiderIsWithinRange(BlockPos pos, LivingEntity raider) {
-        return raider.isAlive() && !raider.isRemoved() && pos.closerToCenterThan(raider.position(), RBRConfig.giveRange) && raider.getType().is(EntityTypeTags.RAIDERS);
+        return raider.isAlive() && !raider.isRemoved() && pos.closerToCenterThan(raider.position(), BRCConfig.giveRange) && raider.getType().is(EntityTypeTags.RAIDERS);
 
     }
 
@@ -54,7 +52,7 @@ public class RBRBellBlock extends BlockEntity {
         BlockPos $$0 = this.getBlockPos();
         if (this.level.getGameTime() > this.lastRingTimestamp + 60L || this.nearbyEntities == null) {
             this.lastRingTimestamp = this.level.getGameTime();
-            AABB $$1 = (new AABB($$0)).inflate(RBRConfig.giveRange);
+            AABB $$1 = (new AABB($$0)).inflate(BRCConfig.giveRange);
             this.nearbyEntities = this.level.getEntitiesOfClass(LivingEntity.class, $$1);
         }
 
@@ -63,7 +61,7 @@ public class RBRBellBlock extends BlockEntity {
 
             while(var4.hasNext()) {
                 LivingEntity $$2 = (LivingEntity)var4.next();
-                if ($$2.isAlive() && !$$2.isRemoved() && $$0.closerToCenterThan($$2.position(), RBRConfig.detectionRange)) {
+                if ($$2.isAlive() && !$$2.isRemoved() && $$0.closerToCenterThan($$2.position(), BRCConfig.detectionRange)) {
                     $$2.getBrain().setMemory(MemoryModuleType.HEARD_BELL_TIME, this.level.getGameTime());
                 }
             }
@@ -86,7 +84,7 @@ public class RBRBellBlock extends BlockEntity {
             }
 
             $$2 = (LivingEntity)var2.next();
-        } while(!$$2.isAlive() || $$2.isRemoved() || !pPos.closerToCenterThan($$2.position(), RBRConfig.detectionRange) || !$$2.getType().is(EntityTypeTags.RAIDERS));
+        } while(!$$2.isAlive() || $$2.isRemoved() || !pPos.closerToCenterThan($$2.position(), BRCConfig.detectionRange) || !$$2.getType().is(EntityTypeTags.RAIDERS));
 
         return true;
     }

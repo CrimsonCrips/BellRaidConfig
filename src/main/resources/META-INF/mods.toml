@@ -1,25 +1,25 @@
 
 modLoader="javafml" #mandatory
 loaderVersion="[46,)"
-issueTrackerURL="https://github.com/CrimsonCrips/RaiderBellRange" #optional
+issueTrackerURL="https://github.com/CrimsonCrips/BellRaidConfig" #optional
 license="MIT"
 [[mods]]
-modId="raidingbellrange" #mandatory
+modId="bellraidconfig" #mandatory
 #displayURL="https://www.curseforge.com/minecraft/mc-mods/alexs-mobs-interaction" #optional
 version="1.0"
-displayName="Raiding Bell Range"
+displayName="Bell Raid Config"
 authors="The Crimson"
 
 description='''Configurable Range for giving glowing to raiders when hitting a bell'''
 
-[[dependencies.raidingbellrange]]
+[[dependencies.bellraidconfig]]
 
 modId="forge"
 mandatory=true
 versionRange="[47,)"
 ordering="NONE"
 side="BOTH"
-[[dependencies.raidingbellrange]]
+[[dependencies.bellraidconfig]]
 modId="minecraft"
 mandatory=true
 versionRange="[1.20.1]"
